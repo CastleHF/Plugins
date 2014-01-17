@@ -21,17 +21,12 @@ public final class StpPatch extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent pke) {
 		if (pke.getReason() == "Nope!") {
-			// Prevent the player from being kicked
 			pke.setCancelled(true);
-			Player p = pke.getPlayer();
-			// Clear their inventory and armor
 			p.getInventory().clear();
-			// I know this is shitty, but it gets the job done
 			p.getInventory().setHelmet(new ItemStack(Material.AIR));
 			p.getInventory().setChestplate(new ItemStack(Material.AIR));
 			p.getInventory().setLeggings(new ItemStack(Material.AIR));
 			p.getInventory().setBoots(new ItemStack(Material.AIR));
-			// Set them on fire for 9001 ticks
 			p.setHealth(0);
 			p.sendMessage("Attempt to use .STP failed.");
 		}

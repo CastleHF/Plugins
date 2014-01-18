@@ -1,0 +1,4 @@
+#This is the config.
+#WMessage is warning message.  Only edit after the :
+WMessage: You've been warned.
+OMessage: OP message.

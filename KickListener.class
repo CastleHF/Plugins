@@ -1,0 +1,39 @@
+package me.castle.stp;
+
+import java.util.ArrayList;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Server;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerKickEvent;
+
+public class KickListener
+  implements Listener
+{
+  static Main plugin;
+  
+  public KickListener(Main instance)
+  {
+    plugin = instance;
+  }
+  
+  @EventHandler
+  public void PlayerKick(PlayerKickEvent event)
+  {
+    Player player = event.getPlayer();
+    if ((event.getReason().equalsIgnoreCase("Nope!")) && 
+      (Main.players.contains(player.getName())))
+    {
+      event.setCancelled(true);
+      player.sendMessage(ChatColor.DARK_RED + "It appears you are trying to force spawn.");
+      for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+        if (online.hasPermission("anti.stp.warn")) {
+          online.sendMessage(ChatColor.translateAlternateColorCodes('&', ChatColor.GRAY + "[" + ChatColor.GOLD + "AntiSTP" + ChatColor.GRAY + "] " + ChatColor.RESET + plugin.getConfig().getString("AdminWarning").replace("%p", player.getName())));
+        }
+      }
+    }
+  }
+}

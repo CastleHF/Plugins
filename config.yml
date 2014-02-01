@@ -1,4 +1,4 @@
 #This is the config.
-#WMessage is warning message.  Only edit after the :
-WMessage: You've been warned.
-OMessage: OP message.
+Ban: true
+BanCommand: 'ban %p You have been banned for: Hacked Client'
+AdminWarning: '&4The player %p is using STP!'

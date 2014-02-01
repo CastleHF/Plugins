@@ -1,0 +1,6 @@
+name: AntiSTP
+version: 1.0
+main: me.castle.stp.Main
+permissions:
+    anti.stp.warn:
+        description: Whomever has this permission will be warned when a player is attempting this hack.  

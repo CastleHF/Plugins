@@ -1,0 +1,40 @@
+package me.castle.stp;
+
+import java.util.ArrayList;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Server;
+import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+
+public class TeleportListener
+  implements Listener
+{
+  static Main plugin;
+  
+  public TeleportListener(Main instance)
+  {
+    plugin = instance;
+  }
+  
+  @EventHandler
+  public void PlayerTeleportEvent(PlayerTeleportEvent event)
+  {
+    Player player = event.getPlayer();
+    if ((event.getCause().equals(PlayerTeleportEvent.TeleportCause.UNKNOWN)) && 
+      (event.getTo().equals(player.getWorld().getSpawnLocation())))
+    {
+      Main.players.add(player.getName());
+      event.setCancelled(true);
+      player.setHealth(0.0D);
+      if (plugin.getConfig().getBoolean("Ban")) {
+        Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), plugin.getConfig().getString("BanCommand").replace("%p", player.getName()));
+      }
+    }
+  }
+}
